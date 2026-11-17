@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buddhista.cz - Rozcestník a průvodce buddhismem</title>
+    <style>
+        /* --- ZÁKLADNÍ STYLY --- */
+        :root {
+            --primary: #d35400;
+            --secondary: #e67e22;
+            --bg-color: #fafafa;
+            --text-color: #333;
+            --card-bg: #fff;
+            --border-color: #eee;
+            --nav-bg: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            padding-top: 60px; /* Odsazení kvůli fixní navigaci */
+        }
+
+        h1, h2, h3 {
+            color: var(--primary);
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- NAVIGACE (FIXNÍ + HAMBURGER) --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--nav-bg);
+            color: white;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            height: 60px;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            text-decoration: none;
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: normal;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 60px;
+                right: -100%;
+                width: 250px;
+                height: calc(100vh - 60px);
+                background-color: var(--nav-bg);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                transition: right 0.3s ease-in-out;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+            
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+        }
+
+        /* --- CSS DHAMMACHAKRA (KOLO ZÁKONA) --- */
+        .wheel-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0 20px 0;
+        }
+
+        .dhammachakra {
+            width: 120px;
+            height: 120px;
+            border: 12px solid #f39c12;
+            border-radius: 50%;
+            position: relative;
+            animation: spin 10s linear infinite;
+            box-shadow: 0 0 20px rgba(243, 156, 18, 0.3);
+        }
+
+        .spoke {
+            position: absolute;
+            width: 8px;
+            height: 100%;
+            background: #f39c12;
+            left: 50%;
+            top: 0;
+            transform-origin: center;
+            margin-left: -4px;
+        }
+
+        .spoke:nth-child(2) { transform: rotate(45deg); }
+        .spoke:nth-child(3) { transform: rotate(90deg); }
+        .spoke:nth-child(4) { transform: rotate(135deg); }
+
+        .hub {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #d35400;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 4px solid #fff;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- HLAVIČKA A TEXTY --- */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin: 10px 0 5px 0;
+        }
+
+        .quote-buddha {
+            font-style: italic;
+            color: #555;
+            font-size: 1.2em;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        .intro-section, .glossary-section, .quiz-section {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+
+        /* Stylování pro seznamy uvnitř textových bloků */
+        .intro-section ul, .intro-section ol {
+            margin-top: 15px;
+            margin-bottom: 20px;
+            padding-left: 25px;
+        }
+
+        .intro-section li {
+            margin-bottom: 10px;
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .intro-box {
+            background: #fffdf5;
+            padding: 20px;
+            border: 1px solid #f9e79f;
+            border-radius: 8px;
+        }
+
+        /* --- SLOVNÍČEK POJMŮ --- */
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .glossary-item {
+            background: #fdfefe;
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .glossary-item h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: var(--primary);
+            font-size: 1.1em;
+        }
+
+        .glossary-item p {
+            margin: 0;
+            font-size: 0.95em;
+            color: #444;
+        }
+
+        /* --- KVÍZ --- */
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fdfefe;
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 8px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .quiz-question {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-btn {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            color: var(--text-color);
+            padding: 15px;
+            text-align: left;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quiz-btn:hover {
+            border-color: var(--secondary);
+            background-color: #fffdf5;
+        }
+
+        .quiz-result {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: #fffdf5;
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+        }
+
+        .quiz-result h3 {
+            margin-top: 0;
+            font-size: 1.8em;
+        }
+
+        .restart-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .restart-btn:hover {
+            background-color: var(--secondary);
+        }
+
+        /* --- ROZCESTNÍK ODKAZŮ --- */
+        .links-section h2 {
+            text-align: center;
+            font-size: 2.2em;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            margin-top: 50px;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .link-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+        }
+
+        .link-card h3 {
+            margin-top: 0;
+            font-size: 1.2em;
+        }
+
+        .link-card p {
+            margin-bottom: 0;
+            font-size: 0.95em;
+            color: #555;
+        }
+
+        /* --- VIDEA --- */
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .video-card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .video-card iframe {
+            width: 100%;
+            height: 200px;
+            border-radius: 5px;
+        }
+        
+        .video-card h3 { margin: 10px 0 5px 0; font-size: 1.1em; }
+        .video-card p { margin: 0; font-size: 0.9em; }
+
+        /* --- COOKIES LIŠTA --- */
+        #cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+            transform: translateY(100%);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        #cookie-banner.show {
+            transform: translateY(0);
+        }
+
+        .cookie-text {
+            flex-grow: 1;
+            margin-right: 20px;
+            font-size: 0.9em;
+        }
+
+        .cookie-buttons button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        .cookie-buttons button:hover { opacity: 0.8; }
+
+        .btn-necessary { background-color: #95a5a6; color: white; }
+        .btn-all { background-color: var(--primary); color: white; }
+
+        /* --- ZPĚT NAHORU TLAČÍTKO --- */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            z-index: 999;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #backToTop:hover {
+            background-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            #cookie-banner { flex-direction: column; text-align: center; }
+            .cookie-text { margin-right: 0; margin-bottom: 15px; }
+            .cookie-buttons button { margin: 5px; width: 100%; }
+            #backToTop { bottom: 20px; right: 20px; width: 45px; height: 45px; font-size: 20px; }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <!-- FIXNÍ NAVIGACE -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#top" class="logo">Buddhista.cz</a>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#uvod">Úvod</a></li>
+                <li><a href="#rozcestnik">Odkazy</a></li>
+                <li><a href="#slovnicek">Slovníček</a></li>
+                <li><a href="#kviz">Kvíz</a></li>
+                <li><a href="#videa">Videa</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Hlavička s CSS kolem -->
+        <header>
+            <div class="wheel-container">
+                <div class="dhammachakra">
+                    <div class="spoke"></div>
+                    <div class="spoke"></div>
+                    <div class="spoke"></div>
+                    <div class="spoke"></div>
+                    <div class="hub"></div>
+                </div>
+            </div>
+            <p class="quote-buddha">Vyvarovat se zla, rozvíjet dobro, očišťovat vlastní mysl – to je poselství Buddhů.</p>
+            <h1>Buddhista.cz</h1>
+            <p>Váš přehledný rozcestník k buddhistické moudrosti a zdrojům v ČR i ve světě.</p>
+        </header>
+
+        <!-- Základní informace -->
+        <section class="intro-section" id="uvod">
+            <h2>Úvod do buddhismu</h2>
+            <p><strong>Uvítací text pro návštěvníky:</strong> Vítejte na webu Buddhista.cz. Tento portál vznikl jako jednoduchý a přehledný rozcestník pro každého, kdo se chce seznámit s buddhismem, ať už ze zvědavosti, pro studijní účely, nebo jako hledající na duchovní cestě. Najdete zde odkazy na nejdůležitější weby, organizace, slovníky a videa.</p>
+            
+            <div class="intro-grid">
+                <div class="intro-box">
+                    <h3>Co je buddhismus?</h3>
+                    <p>Buddhismus je duchovní tradice, filozofie a náboženství, které pochází ze starověké Indie. Nenabízí víru v Boha stvořitele, ale praktickou metodu, jak pracovat s vlastní myslí. Učí nás porozumět příčinám našeho utrpení a ukazuje cestu k jeho trvalému ukončení – k probuzení (Nirváně).</p>
+                </div>
+                <div class="intro-box">
+                    <h3>Život Buddhy</h3>
+                    <p>Historický Buddha (Siddhártha Gautama) byl princ, který žil v 6. až 4. stol. př. n. l. Když si uvědomil, že nemoc, stáří a smrt jsou nevyhnutelné, opustil přepych paláce. Po letech odříkání usedl pod strom Bódhi a dosáhl hlubokého vhledu do podstaty reality – stal se "Probuzeným" (Buddhou).</p>
+                </div>
+                <div class="intro-box">
+                    <h3>Čtyři vznešené pravdy</h3>
+                    <p>Jádro Buddhova učení. 1. <strong>Utrpení (Dukkha) existuje</strong> (život přináší nespokojenost). 2. <strong>Příčinou je žádostivost a lpění</strong>. 3. <strong>Existuje konec utrpení</strong> (stav zvaný Nirvána). 4. <strong>Cesta k ukončení existuje</strong> (je jí Ušlechtilá osmidílná stezka).</p>
+                </div>
+                <div class="intro-box">
+                    <h3>Tři známky existence</h3>
+                    <p>Tři charakteristiky všeho podmíněného: <strong>Pomíjivost (Aničča)</strong> – vše se neustále mění. <strong>Neuspokojivost (Dukkha)</strong> – nic světského nedokáže přinést trvalé štěstí. <strong>Bezpodstatnost (Anattá)</strong> – neexistuje žádné trvalé, nezávislé a oddělené "já" nebo duše.</p>
+                </div>
+                <div class="intro-box">
+                    <h3>Osmidílná stezka</h3>
+                    <p>Praktický návod, jak žít. Zahrnuje: Správný názor, Správný záměr, Správnou řeč, Správné jednání, Správné živobytí, Správné úsilí, Správnou všímavost a Správné soustředění. Rozděluje se na moudrost, etiku a meditaci.</p>
+                </div>
+                <div class="intro-box">
+                    <h3>Tři klenoty</h3>
+                    <p>Jsou to tři pilíře, ke kterým se buddhisté obracejí pro útočiště a bezpečí. Jsou to: <strong>Buddha</strong> (jako učitel a ideál probuzení), <strong>Dhamma</strong> (jeho učení a univerzální zákon) a <strong>Sangha</strong> (komunita praktikujících a probuzených bytostí).</p>
+                </div>
+                <div class="intro-box">
+                    <h3>Pět etických zásad</h3>
+                    <p>Základní etika pro každodenní život. Buddhisté se zavazují: 1. Nezabíjet živé tvory. 2. Nebrat, co nebylo dáno (nekrást). 3. Nedopouštět se nesprávného sexuálního chování. 4. Nelhat a nemluvit zraňujícím způsobem. 5. Neužívat alkohol a drogy, které zatemňují mysl.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- DŮKAZY PRO BUDDHISMUS -->
+        <section class="intro-section" id="dukazy">
+            <h2>Důkazy pro buddhismus</h2>
+            <p>Buddhismus bývá často vnímán jako náboženství plné rituálů, ale v jádru jde spíše o praktickou psychologii a pozorování světa. Mnoho jeho základních myšlenek, které vznikly před dvěma a půl tisíci lety, dnes překvapivě přesně potvrzují moderní vědecké obory, psychologie i výzkum lidského mozku.<br>
+            Zde je sedm bodů, které ukazují, jak blízko má buddhismus k modernímu poznání:</p>
+            <ol>
+                <li><strong>Lékařský postup u čtyř vznešených pravd:</strong> Základní učení buddhismu nestojí na dogmatech, ale na postupu lékaře: pojmenuje problém (život přináší nespokojenost), určí jeho příčinu (lpění na věcech), potvrdí, že existuje lék (odstranění příčiny), a předepíše konkrétní léčbu (návod, jak žít). Jde o čistě racionální diagnostiku.</li>
+                <li><strong>Základy vědecké metody:</strong> Buddha svým žákům výslovně říkal, aby nevěřili ničemu jen proto, že to řekl on nebo nějaká autorita. Měli si vše sami vyzkoušet a ověřit ve vlastní zkušenosti. To je stejný princip, na jakém stojí moderní věda: hypotéza, pokus a ověření výsledku.</li>
+                <li><strong>Vnitřní rozpor (kognitivní disonance):</strong> Když naše představy neodpovídají realitě, prožíváme nepříjemné vnitřní napětí. Psychologie tento jev zkoumá teprve několik desetiletí. Buddhismus na něj poukazoval od začátku: pokud lpíme na představě, že věci jsou trvalé, ale svět kolem nás se neustále mění, vytváříme si v hlavě zbytečný konflikt a trápení.</li>
+                <li><strong>Mozek se mění cvičením (neuroplasticita):</strong> Dlouho se věřilo, že dospělý mozek je neměnný. Neurověda však dokázala, že mozek se přetváří podle toho, jak ho používáme. Buddhismus na této schopnosti staví veškerou praxi: pravidelným tréninkem mysli a pozornosti lze fyzicky změnit fungování mozku a posílit klid či soustředění.</li>
+                <li><strong>Zvykání si na dobré i špatné (hedonická adaptace):</strong> Lidé si rychle zvyknou na nové věci. Koupíme si nové auto, chvíli máme radost, ale brzy se náš pocit štěstí vrátí na původní úroveň a chceme víc. Buddhismus na tento nekonečný koloběh touhy upozorňuje jako na hlavní past mysli: vnější věci nám trvalé uspokojení přinést nemohou.</li>
+                <li><strong>Odmítnutí astrologie:</strong> V době vzniku buddhismu lidé věřili, že jejich osud řídí hvězdy a planety. Buddha takové praktiky odmítal jako pověry. Učil, že život člověka neurčuje postavení hvězd, ale jeho vlastní vědomá rozhodnutí a činy.</li>
+                <li><strong>V mozku neexistuje jedno centrum pro „já“:</strong> Zkoumání mozku moderními přístroji ukázalo, že neexistuje žádné konkrétní místo, kde by sídlilo naše „já“. Vědomí vzniká souhrou mnoha různých částí a procesů. To přesně odpovídá buddhistickému učení o neexistenci pevného a neměnného „já“ (koncept anattá).</li>
+                <li><strong>Zklidnění stresové reakce pomocí dechu (aktivace parasympatiku):</strong> Lékařské studie potvrzují, že vědomé zaměření na klidné dýchání tlumí aktivitu amygdaly (centra strachu v mozku), snižuje hladinu stresového hormonu kortizolu a aktivuje parasympatický nervový systém zodpovědný za regeneraci. V théravádě je pozorování dechu (ánápánasati) nejzákladnější meditační technikou, kterou Buddha doporučoval jako přímý a vždy dostupný nástroj ke zklidnění těla i mysli.</li>
+                <li><strong>Rozdíl mezi fyzickou bolestí a psychickým utrpením (neurobiologie bolesti):</strong> Moderní medicína a výzkum bolesti rozlišují mezi samotným fyzickým signálem z nervů a psychickou reakcí mozku, jako je strach nebo odpor, který bolest násobí. Buddha tento mechanismus popsal v podobenství o dvou šípech: první šíp je nevyhnutelná fyzická bolest, kterou nemůžeme ovlivnit, ale druhý šíp si do sebe střílíme sami svým mentálním odporem a sebelítostí. Všímavost učí druhý šíp vůbec nevystřelit.</li>
+            </ol>
+            <p>Buddhismus se tak v mnoha ohledech neopírá o slepou víru, ale o přesné pozorování lidské psychiky a fungování těla, ke kterým moderní věda dochází pomocí laboratorních přístrojů.</p>
+        </section>
+
+        <!-- OBHAJOBA BUDDHISMU -->
+        <section class="intro-section" id="obhajoba">
+            <h2>Obhajoba buddhismu</h2>
+            <p>Při hlubším pohledu na buddhismus, konkrétně na jeho nejstarší dochovanou tradici théravádu, často vyvstávají logické otázky a pochybnosti. Pokud v učení nefiguruje stvořitel ani nesmrtelná duše, jak do sebe zapadají základní pravidla o znovuzrození, karmě či poznání světa?<br>
+            Zde je jednoduché vysvětlení nejčastějších námitek podle původního učení théravády:</p>
+            <ul>
+                <li><strong>1. Jak mohl Buddha získat tyto znalosti bez boha?</strong><br>Buddha nebyl prorok, kterému by pravdu nadiktovala vyšší bytost. Všechny své poznatky získal sám díky dlouhodobému a systematickému tréninku vlastní mysli. Dokázal svou pozornost zklidnit a vyostřit natolik, že mohl přímo pozorovat, jak fungují jeho tělesné i duševní procesy a jak na sebe navazují příčiny a následky. Šlo tedy o přímé empirické zkoumání reality zevnitř, nikoli o boží zjevení.</li>
+                <li><strong>2. Jak funguje znovuzrození, když neexistuje duše?</strong><br>Buddhismus neučí stěhování duše z těla do těla. Učí, že člověk je neustálý tok myšlenek, pocitů a energie. Když člověk zemře, nepřelétá žádná neviditelná bytost jinam. Dochází k tomu, že poslední stav mysli a nahromaděná energie přímo způsobí vznik nového vědomí v novém těle. Funguje to jako zapálení nové svíčky od staré dohořívající: oheň nepřeskočil jako pevný předmět, ale nová svíčka hoří jen díky té předchozí.</li>
+                <li><strong>3. Odporuje nirvána, Dhamma a karma pravidlu pomíjivosti (anicca)?</strong><br>Pravidlo pomíjivosti (anicca) platí pro všechny věci, které jsou složené a vznikají na základě příčin – to znamená pro tělo, myšlenky, pocity i fyzický svět.
+                    <ul>
+                        <li>Zákon karmy a platnost Dhammy nejsou hmotné věci, ale neměnná pravidla, principy příčiny a následku. Stejně jako gravitační zákon nepomíjí, ani tyto přírodní zákonitosti nevznikají a nezanikají.</li>
+                        <li>Nirvána je jediný prvek, který není složený z žádných částí a na ničem nezávisí. Protože nevzniká z příčin, nemůže ani zaniknout. Pravidlu pomíjivosti neodporuje, protože stojí zcela mimo svět proměnlivých jevů.</li>
+                    </ul>
+                </li>
+                <li><strong>4. Jak mohu nést zodpovědnost za minulé životy bez trvalé duše?</strong><br>Nejste přesně tatáž osoba, která žila v minulém životě, ale nejste ani někdo úplně jiný. Jste přímým pokračováním tohoto procesu. Dá se to přirovnat k dospělému člověku a dítěti: dospělý nemá v těle jedinou buňku stejnou jako v pěti letech a myslí úplně jinak, přesto dnes nese následky toho, co se v dětství naučil nebo způsobil. Zodpovědnost neplyne z neměnné duše, ale ze souvislého řetězce příčin a následků.</li>
+                <li><strong>5. Je odmítání všeho mimo Tipitaku (původní texty) druhem lpění?</strong><br>Záleží na přístupu. Pokud člověk bere staré texty jako posvátnou modlu a bojuje za ně z pýchy, jde o lpění na názorech. Théraváda však používá Tipitaku jinak: jako přesný návod k použití nebo ověřenou mapu. Když se ztratíte v lese, držet se spolehlivé mapy není slepé lpění, ale rozumná opatrnost, abyste nesešli z cesty. Texty slouží pouze jako nástroj k dosažení cíle, nikoli jako cíl samotný.</li>
+                <li><strong>6. Je buddhismus pesimistický, když tvrdí, že život je utrpení?</strong><br>Slovo dukkha, které se často překládá jako „utrpení“, ve skutečnosti označuje neuspokojivost, křehkost a nestálost všech podmíněných věcí. Buddhismus nepopírá, že v životě existuje radost nebo krása – pouze upozorňuje, že tyto stavy jsou dočasné, a pokud na nich lpíme, nutně přinesou zklamání. Přirovnat to lze k lékaři: to, že pacientovi přesně pojmenuje nemoc, není pesimismus, ale nezbytný první krok k vyléčení. Naopak jde o radikální optimismus, protože učení tvrdí, že utrpení má svou příčinu a lze ho zcela odstranit.</li>
+                <li><strong>7. Není snaha o vlastní nirvánu (ideál arahanta) sobecká?</strong><br>Podle théravády nemůžete nikoho vytáhnout z bažiny, dokud v ní sami vězíte až po krk. Teprve když člověk očistí vlastní mysl od chamtivosti, hněvu a zaslepenosti, dokáže druhým pomáhat skutečně nezištně, moudře a bez skrytých očekávání. Navíc rozvoj milující laskavosti (mettá) a soucitu (karuná) ke všem bytostem je pevnou součástí samotné cesty k probuzení, nikoli jejím protikladem.</li>
+                <li><strong>8. Neodporuje touha dosáhnout nirvány pravidlu o opuštění všech tužeb?</strong><br>Jazyk páli, v němž jsou původní texty zapsány, rozlišuje dva druhy přání: slepou, lpící žádostivost (tanhá), která vede k utrpení, a zdravý záměr či odhodlání (čhanda), které nás vede k prospěšnému jednání. Využít zdravé odhodlání k překonání slepých tužeb je jako použít vor k přeplutí rozbouřené řeky. Během plavby se voru držíte, ale jakmile stanete na druhém břehu, s vděčností ho opustíte.</li>
+                <li><strong>9. Proč měl Buddha přísnější pravidla pro mnišky než pro mnichy?</strong><br>Buddha jednoznačně prohlásil, že ženy mají zcela stejnou schopnost dosáhnout plného probuzení jako muži, což bylo v tehdejší indické společnosti revoluční tvrzení. Dodatečná pravidla pro mnišky (garudhammy) nevznikla z přesvědčení o duchovní méněcennosti žen, ale z čistě praktických a ochranných důvodů – v patriarchální společnosti tehdejší Indie čelily samostatně žijící asketky vážnému fyzickému nebezpečí i společenskému odporu a bez úzké vazby na mužský řád by ženská komunita nedokázala přežít.</li>
+                <li><strong>10. Proč Buddha mlčel k základním filozofickým otázkám (například zda je vesmír věčný)?</strong><br>Buddha odmítal odpovídat na spekulativní metafyzické otázky (avjákata) nikoli z nevědomosti, ale z čistého pragmatismu. Přirovnal to k muži zasaženému otráveným šípem, který odmítá nechat lékaře šíp vytáhnout, dokud nezjistí jméno, kastu a výšku střelce. Spekulace o původu vesmíru lidské utrpení neodstraní – théraváda se proto soustředí výhradně na praktické řešení bolesti a osvobození mysli.</li>
+                <li><strong>11. Neodporuje uctívání soch Buddhy, relikvií a rituálů v asijských zemích racionálnímu učení?</strong><br>V autentické théravádě není poklona před sochou Buddhy modlitbou k bohu, který plní přání, ani uctíváním kusu kamene. Jde o projev vděčnosti a psychologickou kotvu – připomínku kvalit moudrosti, čistoty a soucitu, které v sobě sami rozvíjíme. Podobně jako fotografie inspirativního učitele na stole pomáhá udržet směr, vnější úcta podporuje vnitřní praxi, ačkoli slepé lpění na rituálech (sílabbata-parámása) Buddha výslovně označil za jednu z překážek probuzení.</li>
+                <li><strong>12. Když Buddha učil ehipassiko („pojď a přesvědč se sám“), proč vyslal učedníky šířit své učení?</strong><br>Princip ehipassiko neznamená, že by se učení mělo skrývat, ale že nemá být přijímáno ze slepé poslušnosti. Aby se však člověk mohl „přijít přesvědčit sám“, musí se nejprve vůbec dozvědět, že taková možnost existuje. Buddha proto neposlal své žáky jako misionáře, kteří mají lidi obracet na víru pomocí slibů, hrozeb nebo nátlaku, ale čistě ze soucitu – „pro blaho a štěstí mnohých“. Dá se to přirovnat k objevení studny s čistou vodou uprostřed pouště: dáte ostatním vědět, kde pramen leží a jak se k němu dostanou, ale nikoho nenutíte pít ani vás brát za slovo. Každý pak může přijít, ochutnat a ověřit výsledek na vlastní kůži.</li>
+            </ul>
+            <p>Théravádový buddhismus tak ukazuje, že jeho principy netvoří náhodnou sbírku dogmat, ale logicky provázaný systém, kde absence boha i duše dává jasný smysl.</p>
+        </section>
+
+        <!-- ZÁKLADY BUDDHISMU -->
+        <section class="intro-section" id="zaklady">
+            <h2>Základy buddhismu</h2>
+            <p>Théravádový buddhismus představuje ucelený systém, který popisuje fungování lidské mysli a světa bez spoléhání na nadpřirozené síly. Vychází z myšlenky, že každý člověk má plnou kontrolu nad svým životem i nad svým vnitřním klidem.<br>
+            Zde je přehled základních pilířů a přesvědčení této tradice:</p>
+            <ul>
+                <li><strong>Čtyři vznešené pravdy:</strong> Základní kostra celého učení. Říká, že nespokojenost a trápení v životě existují, mají svou konkrétní příčinu (lpění a touhu), lze je trvale ukončit a existuje přesný postup, jak toho dosáhnout.</li>
+                <li><strong>Osmidílná stezka:</strong> Konkrétní návod k ukončení trápení. Zahrnuje správné pochopení reality, správný záměr, pravdivou mluvu, poctivé jednání, neškodlivé živobytí, vědomé úsilí, všímavost a schopnost soustředění.</li>
+                <li><strong>Cesta prostředku:</strong> Vyhýbání se dvěma extrémům – bezhlavému vyhledávání smyslových požitků na jedné straně a nesmyslnému sebetrýznění na straně druhé. Cílem je rozumná rovnováha vedoucí ke klidu.</li>
+                <li><strong>Tři známky existence:</strong> Všechny jevy ve světě mají tři společné vlastnosti: jsou nestálé a proměnlivé (anicca), přinášejí neuspokojivost, pokud na nich lpíme (dukkha), a neobsahují žádné neměnné, trvalé „já“ či podstatu (anattá).</li>
+                <li><strong>Zákon závislého vznikání:</strong> Nic neexistuje samo o sobě ani náhodou. Každý jev vzniká jen tehdy, když jsou pro něj splněny konkrétní podmínky. Když podmínky pominou, zaniká i daný jev.</li>
+                <li><strong>Karma jako otisk chování a myšlení:</strong> Karma znamená úmyslný čin. Každá vědomá myšlenka, slovo nebo skutek zanechává v mysli stopu, která v budoucnu přináší odpovídající důsledky.</li>
+                <li><strong>Samsára a znovuzrozování vědomí:</strong> Nekonečný proces, při kterém proud vědomí po zániku jednoho těla pokračuje v těle novém na základě nahromaděné karmy.</li>
+                <li><strong>Pekla a nebe jsou dočasná:</strong> V buddhismu existují různé sféry existence – od velmi příjemných po bolestivé. Žádný z těchto stavů však není věčný. Jakmile se vyčerpá karma, která k danému zrození vedla, bytost se rodí znovu jinde.</li>
+                <li><strong>Nirvána a cíl života:</strong> Cílem praxe není sbírat příjemné zážitky, které brzy vyprchají. Cílem je nirvána – stav trvalého vyhasnutí touhy, hněvu a nevědomosti, čímž končí veškeré trápení a koloběh znovuzrozování.</li>
+                <li><strong>Vlastní zodpovědnost za osvobození:</strong> V buddhismu neexistuje žádný spasitel, který by mohl člověka zachránit. Učitel může ukázat směr, ale veškerou práci na své mysli musí udělat každý sám.</li>
+                <li><strong>Žádný bůh stvořitel:</strong> Svět nebyl stvořen všemocnou bytostí a nikdo zvenčí neřídí lidské osudy ani nerozdává tresty a odměny.</li>
+                <li><strong>Siddhattha Gotama a budoucí Buddha Maitreya:</strong> Historický Buddha byl člověk, který vlastním úsilím pochopil pravdu a ukázal cestu ostatním. Učení říká, že až se jeho odkaz v daleké budoucnosti zcela vytratí, objeví se další člověk, budoucí Buddha Maitreya, který cestu znovu objeví a vyloží.</li>
+                <li><strong>Tři klenoty:</strong> Základní opora pro každého praktikujícího. Buddha slouží jako lidský vzor, Dhamma je samotné učení a návod, a Sangha představuje společenství těch, kteří podle tohoto návodu žijí.</li>
+                <li><strong>Pět etických zásad:</strong> Základní morální trénink pro každodenní život: nezabíjet živé tvory, nekrást, nechovat se nevhodně v oblasti sexuality, nelhat a neužívat látky otupující pozornost a rozum.</li>
+                <li><strong>Nejtěžší prohřešky (ánantarika-kamma):</strong> Pět činů s okamžitým negativním následkem v příštím životě: vražda matky, vražda otce, zabití osvíceného člověka (arhanta), úmyslné zranění Buddhy a způsobení rozkolu v mnišském společenství.</li>
+                <li><strong>Odmítnutí astrologie, věštění a magie:</strong> Tyto praktiky jsou vnímány jako slepé pověry, které neřeší podstatu lidského trápení a nijak nepřispívají k osvobození mysli.</li>
+                <li><strong>Kniha Tipitaka a šest koncilů:</strong> Tipitaka (Tři koše) je ucelený soubor nejstarších textů obsahující mnišská pravidla, Buddhovy rozpravy a podrobnou psychologickou analýzu. Texty byly po staletí uchovávány a ověřovány na šesti velkých shromážděních mnichů (koncilech), aby se zabránilo zkreslení původního učení.</li>
+                <li><strong>Tři kořeny utrpení:</strong> nevědomost, touha, hněv</li>
+                <li><strong>Čtyři druhy lpění:</strong> smyslové požitky, názory, rituály, já</li>
+                <li><strong>Pět khandh:</strong> tělo, pocity, vnímání, mentalita, vědomí</li>
+                <li><strong>Rostliny:</strong> nesbírají karmu ani se nemohou znovuzrodit</li>
+            </ul>
+            <p>Théravádový buddhismus se tak vyznačuje přísným důrazem na osobní praxi, etiku a logickou provázanost bez spoléhání na magii či vnější autority.</p>
+        </section>
+
+        <!-- ROZCESTNÍK -->
+        <section class="links-section" id="rozcestnik">
+            <h2>Webové zdroje, organizace a texty</h2>
+            <div class="links-grid">
+                <div class="link-card">
+                    <h3><a href="https://hoiphatgiaovn.cz" target="_blank">Hội Phật tử Việt Nam</a></h3>
+                    <p>Vietnamská buddhistická komunita a sdružení v České republice.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://europeanbuddhistunion.com" target="_blank">European Buddhist Union</a></h3>
+                    <p>Zastřešující organizace buddhistických center a skupin napříč Evropou.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://siddhartha.cz" target="_blank">Siddhartha.cz</a></h3>
+                    <p>Česká pobočka Siddhartha's Intent, studium a praxe pod vedením Dzongsar Khjence Rinpočheho.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://www.buddhismus.cz" target="_blank">Buddhismus.cz</a></h3>
+                    <p>Informační portál Buddhismus Diamantové cesty linie Karma Kagjü v České republice. Informace o centrech a meditacích.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://www.theravada.cz" target="_blank">Theravada.cz</a></h3>
+                    <p>Oficiální stránky pro théravádový buddhismus v ČR. Informace o mniších, praxi, meditacích a raném učení.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://bdc.cz" target="_blank">BDC.cz</a></h3>
+                    <p>Buddhismus Diamantové cesty – organizace sdružující centra tibetského buddhismu v Česku pod vedením lamy Oleho Nydahla.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://suttacentral.net/?lang=cs" target="_blank">SuttaCentral (CS)</a></h3>
+                    <p>Klíčový portál obsahující překlady raných buddhistických textů (sutt). Zdroj původního Buddhova učení v češtině.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://bodhipath.cz" target="_blank">BodhiPath.cz</a></h3>
+                    <p>Síť buddhistických center založená 14. Šamarpou. Zaměření na nesektářský přístup a učení Kagjü.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://www.buddha.cz" target="_blank">Buddha.cz</a></h3>
+                    <p>Český portál se základními informacemi o buddhismu a akcích pro hledající a praktikující napříč školami.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://buddhaweb.cz" target="_blank">Buddhaweb.cz</a></h3>
+                    <p>Inspirativní články, příběhy a citáty. Web pro hlubší seznámení se s buddhistickou filozofií a psychologií.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://studybuddhism.com" target="_blank">StudyBuddhism.com</a></h3>
+                    <p>Rozsáhlá mezinárodní encyklopedie a vzdělávací projekt o tibetském buddhismu (tzv. Berzinovy archivy).</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://www.dhammatalks.org" target="_blank">DhammaTalks.org</a></h3>
+                    <p>Obrovský archiv přednášek, audioknih a překladů od Ṭhánissara Bhikkhua (thajská lesní tradice) v angličtině.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://suttacentral.now" target="_blank">SuttaCentral Now</a></h3>
+                    <p>Alternativní odkaz pro přístup k raným buddhistickým textům, diskurzům a studijním materiálům.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://buddhismus.webnode.cz" target="_blank">Buddhismus.webnode.cz</a></h3>
+                    <p>Amatérský/soukromý web obsahující zápisky, úvahy a osobní pohledy na buddhistickou praxi.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://www.buddhizmus.sk" target="_blank">Buddhizmus.sk</a></h3>
+                    <p>Slovenský portál a rozcestník věnovaný buddhistickým školám a skupinám na Slovensku.</p>
+                </div>
+            </div>
+
+            <!-- DALŠÍ ODKAZY (Přidáno) -->
+            <h2>Další odkazy a fóra</h2>
+            <div class="links-grid">
+                <div class="link-card">
+                    <h3><a href="https://www.lionsroar.com" target="_blank">Lion's Roar</a></h3>
+                    <p>Přední světový buddhistický magazín a portál nabízí články o praxi, moderním životě a kultuře.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://www.reddit.com/r/theravada" target="_blank">r/theravada (Reddit)</a></h3>
+                    <p>Aktivní diskuzní komunita zaměřená čistě na théravádový buddhismus a studium pálijského kánonu.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://www.reddit.com/r/Buddhism" target="_blank">r/Buddhism (Reddit)</a></h3>
+                    <p>Největší všeobecné online diskuzní fórum o buddhismu s uživateli ze všech hlavních tradic.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://buddhism.net" target="_blank">Buddhism.net</a></h3>
+                    <p>Základní informační rozcestník s širokým záběrem do různých škol a učení.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://tricycle.org/buddhism-for-beginners" target="_blank">Tricycle: Beginners</a></h3>
+                    <p>Výborný a srozumitelný průvodce buddhismem pro úplné začátečníky od magazínu Tricycle.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://www.centrumlotus.cz" target="_blank">Centrum Lotus</a></h3>
+                    <p>Buddhistické a meditační centrum v srdci Prahy, které poskytuje prostor pro praxi různých tradic.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://www.zenkaisen.cz" target="_blank">Zen Kaisen</a></h3>
+                    <p>Oficiální stránky zenového buddhismu (tradiční linie Sótó) v České republice a na Slovensku.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://www.buddhanet.net/" target="_blank">BuddhaNet</a></h3>
+                    <p>Celosvětový informační portál a síť pro buddhismus obsahující rozsáhlou databázi studijních materiálů.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://www.dalailama.com/" target="_blank">Dalailama.com</a></h3>
+                    <p>Oficiální webové stránky 14. tibetského dalajlamy Tändzina Gjamccha (v angličtině).</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://fakebuddhaquotes.com/" target="_blank">Fake Buddha Quotes</a></h3>
+                    <p>Užitečná stránka věnovaná ověřování a odhalování falešných citátů připisovaných Buddhovi.</p>
+                </div>
+            </div>
+
+            <!-- ENCYKLOPEDIE WIKIPEDIA -->
+            <h2>Pojmy a encyklopedie (Wikipedia)</h2>
+            <div class="links-grid">
+                <div class="link-card">
+                    <h3><a href="https://cs.wikipedia.org/wiki/Buddhismus" target="_blank">Buddhismus (CS)</a></h3>
+                    <p>Hlavní článek na české Wikipedii pokrývající historii, vývoj a základy buddhistického náboženství.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://en.wikipedia.org/wiki/Buddhism" target="_blank">Buddhism (EN)</a></h3>
+                    <p>Velmi rozsáhlý anglický článek o buddhismu s detailní celosvětovou historií.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://cs.wikipedia.org/wiki/Gautama_Buddha" target="_blank">Gautama Buddha</a></h3>
+                    <p>Životopis historického zakladatele buddhismu Siddhárthy Gautamy.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://cs.wikipedia.org/wiki/%C4%8Cty%C5%99i_u%C5%A1lechtil%C3%A9_pravdy" target="_blank">Čtyři ušlechtilé pravdy (CS)</a></h3>
+                    <p>Detailní rozbor základního dogmatu a podstaty učení.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://en.wikipedia.org/wiki/Four_Noble_Truths" target="_blank">Four Noble Truths (EN)</a></h3>
+                    <p>Anglický a velmi podrobný rozbor Čtyř vznešených pravd.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://cs.wikipedia.org/wiki/U%C5%A1lechtil%C3%A1_osmid%C3%ADln%C3%A1_stezka" target="_blank">Osmidílná stezka</a></h3>
+                    <p>Popis osmi kroků, které vedou k osvobození od utrpení.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://cs.wikipedia.org/wiki/Th%C3%A9rav%C3%A1da" target="_blank">Théraváda</a></h3>
+                    <p>"Učení starších" - nejstarší zachovalá škola buddhismu, populární na Srí Lance a v JV Asii.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://cs.wikipedia.org/wiki/Mah%C3%A1j%C3%A1na" target="_blank">Mahájána</a></h3>
+                    <p>"Velké vozidlo" - směr buddhismu kladoucí důraz na ideál bódhisattvy, běžný ve východní Asii.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://cs.wikipedia.org/wiki/Vad%C5%BEraj%C3%A1na" target="_blank">Vadžrajána</a></h3>
+                    <p>"Diamantové vozidlo" - esoterický, tantrický proud buddhismu praktikovaný zejména v Tibetu a okolí.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://cs.wikipedia.org/wiki/Anatt%C3%A1" target="_blank">Anattá (Ne-já)</a></h3>
+                    <p>Klíčový buddhistický koncept o neexistenci nezávislé a trvalé duše v bytostech.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://cs.wikipedia.org/wiki/Nirv%C3%A1na" target="_blank">Nirvána (CS)</a></h3>
+                    <p>Vysvětlení pojmu osvobození a vyvanutí žádostivosti.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://en.wikipedia.org/wiki/Nirvana" target="_blank">Nirvana (EN)</a></h3>
+                    <p>Anglický akademický rozbor pojmu Nirvána napříč indickými tradicemi.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://cs.wikipedia.org/wiki/P%C3%A1lijsk%C3%BD_k%C3%A1non" target="_blank">Pálijský kánon (CS)</a></h3>
+                    <p>Základní sbírka buddhistických textů tradice Théravády psaná v jazyce páli.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://en.wikipedia.org/wiki/Pali_Canon" target="_blank">Pali Canon (EN)</a></h3>
+                    <p>Anglický článek o struktuře (Tipitaka) a historii Pálijského kánonu.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://cs.wikipedia.org/wiki/Sutta-pitaka" target="_blank">Sutta-pitaka</a></h3>
+                    <p>Koš rozprav (sutt) – druhá část Pálijského kánonu, obsahuje samotné učení Buddhy.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://cs.wikipedia.org/wiki/Vinaja" target="_blank">Vinaja (Vinaja-pitaka)</a></h3>
+                    <p>Koš disciplíny – soubor pravidel pro buddhistické mnichy a mnišky.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://cs.wikipedia.org/wiki/Abhidhamma" target="_blank">Abhidhamma</a></h3>
+                    <p>Třetí část kánonu – hluboká a detailní psychologicko-filozofická analýza mysli a reality.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://cs.wikipedia.org/wiki/D%C3%ADgha-nik%C3%A1ja" target="_blank">Dígha-nikája</a></h3>
+                    <p>Sbírka "dlouhých rozprav", která je součástí Sutta-pitaky.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://cs.wikipedia.org/wiki/%C5%A0est%C3%BD_buddhistick%C3%BD_koncil" target="_blank">Šestý buddhistický koncil (CS)</a></h3>
+                    <p>Významná historická událost (1954–1956 v Barmě) pro sjednocení a revizi textů.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://en.wikipedia.org/wiki/Sixth_Buddhist_council" target="_blank">Sixth Buddhist Council (EN)</a></h3>
+                    <p>Anglický článek s detaily o událostech Šestého buddhistického koncilu.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://cs.wikipedia.org/wiki/Mah%C3%A1ppad%C5%BE%C3%A1pat%C3%AD_G%C3%B3tam%C3%AD" target="_blank">Maháppadžápatí Gótamí</a></h3>
+                    <p>Příběh Buddhovy pěstounky a první buddhistické mnišky v historii.</p>
+                </div>
+                <div class="link-card">
+                    <h3><a href="https://cs.wikipedia.org/wiki/Buddhismus_v_%C4%8Cesku" target="_blank">Buddhismus v Česku</a></h3>
+                    <p>Historie a současný stav vývoje a praxe buddhismu na území České republiky.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLOVNÍČEK POJMŮ -->
+        <section class="glossary-section" id="slovnicek">
+            <h2>Slovníček pojmů</h2>
+            <div class="glossary-grid">
+                <div class="glossary-item">
+                    <h3>Paňča síla</h3>
+                    <p>Pět etických pravidel pro laiky. Závazek neubližovat živým tvorům, nekrást, nezneužívat sexualitu, nelhat a neuzívat látky zastírající mysl.</p>
+                </div>
+                <div class="glossary-item">
+                    <h3>Samsára</h3>
+                    <p>Nekonečný koloběh znovuzrozování, vznikání a zanikání, ve kterém se bytosti pohybují, dokud nedosáhnou osvobození.</p>
+                </div>
+                <div class="glossary-item">
+                    <h3>Bhikkhu</h3>
+                    <p>Řádově vysvěcený buddhistický mnich, který žije podle pravidel mnišské disciplíny a věnuje se studiu a meditaci.</p>
+                </div>
+                <div class="glossary-item">
+                    <h3>Arahant</h3>
+                    <p>Ušlechtilá bytost, která dosáhla plného osvícení, odstranila všechny duševní nečistoty a po smrti se již nezrodí.</p>
+                </div>
+                <div class="glossary-item">
+                    <h3>Sangha</h3>
+                    <p>Duchovní společenství. V užším smyslu společenství mnišek a mnichů, v širším smyslu všichni lidé, kteří praktikují Buddhovou cestu.</p>
+                </div>
+                <div class="glossary-item">
+                    <h3>Tipitaka</h3>
+                    <p>Trojí koš neboli pálijský kánon. Sbírka základních theravádových textů, která obsahuje pravidla pro mnichy, výklady učení a pokročilou psychologicko-filozofickou nauku.</p>
+                </div>
+                <div class="glossary-item">
+                    <h3>Páli</h3>
+                    <p>Starověký indický jazyk, ve kterém jsou zapsány nejstarší dochované texty theravádového buddhismu.</p>
+                </div>
+                <div class="glossary-item">
+                    <h3>Nibbána</h3>
+                    <p>Konečný cíl buddhistické praxe. Je to stav úplného vyhasnutí chamtivosti, nenávisti a klamu, který vede k osvobození od koloběhu znovuzrozování.</p>
+                </div>
+                <div class="glossary-item">
+                    <h3>Kamma</h3>
+                    <p>Zákon příčiny a následku spojený s úmyslným jednáním. Každý úmyslný čin myšlenkou, slovem nebo skutkem zanechává otisk a přináší odpovídající ovoce či následek.</p>
+                </div>
+                <div class="glossary-item">
+                    <h3>Dhamma</h3>
+                    <p>Učení Buddhy, univerzální pravda a přírodní zákony. V širším smyslu označuje také jakýkoli jev nebo prvek reality.</p>
+                </div>
+                <div class="glossary-item">
+                    <h3>Dukkha</h3>
+                    <p>Strast, neuspokojivost nebo nepohodlí. Nejde jen o fyzickou bolest, ale o obecný pocit, že věci ve světě nemohou přinést trvalé a úplné uspokojení, protože jsou pomíjivé.</p>
+                </div>
+                <div class="glossary-item">
+                    <h3>Anattá</h3>
+                    <p>Bezjáství nebo neexistence trvalé duše. To, co nazýváme já, je jen neustále se měnící soubor tělesných a duševních procesů, nikoli pevná nezničitelná podstata.</p>
+                </div>
+                <div class="glossary-item">
+                    <h3>Aničča</h3>
+                    <p>Pomíjivost a neustálá změna. Všechno v hmotném i duševním světě vzniká, trvá a zaniká, nic nezůstává stejné.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- KVÍZ TRADIC -->
+        <section class="quiz-section" id="kviz">
+            <h2>Interaktivní minikvíz</h2>
+            <div class="quiz-container">
+                <div id="quiz-block">
+                    <div class="quiz-header">
+                        <span id="question-number">Otázka 1 z 12</span>
+                    </div>
+                    <div class="quiz-question" id="question-text">Načítání otázky...</div>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="selectAnswer('A')" id="btn-a">A</button>
+                        <button class="quiz-btn" onclick="selectAnswer('B')" id="btn-b">B</button>
+                        <button class="quiz-btn" onclick="selectAnswer('C')" id="btn-c">C</button>
+                        <button class="quiz-btn" onclick="selectAnswer('D')" id="btn-d">D</button>
+                    </div>
+                </div>
+                <div class="quiz-result" id="result-block">
+                    <h3>Tvá cesta je: <span id="result-title"></span></h3>
+                    <p id="result-desc"></p>
+                    <button class="restart-btn" onclick="startQuiz()">Zkusit znovu</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- YOUTUBE VIDEA (s iframe náhledy) -->
+        <section class="links-section" id="videa">
+            <h2>Videozdroje a přednášky (YouTube)</h2>
+            <div class="videos-grid">
+                
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/uBhyOj2Oa8U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Ti-Sarana: The Three Refuges</h3>
+                    <p>Tradiční zpěv a recitace Tří klenotů buddhismu (v jazyce páli a angličtině).</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/mvBLSJWk6HE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Om Mani Padme Hum</h3>
+                    <p>Klidná meditační mantra doplněná citáty Buddhy pro navození vnitřního míru.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/heUhARKl2bY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Video o buddhismu #1</h3>
+                    <p>Buddhistická přednáška, dokument nebo inspirativní video spojené s praxí.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/QT2QS-NXiLA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Video o buddhismu #2</h3>
+                    <p>Buddhistická přednáška, dokument nebo inspirativní video spojené s praxí.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/b3rtSPL4C1w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Video o buddhismu #3</h3>
+                    <p>Buddhistická přednáška, dokument nebo inspirativní video spojené s praxí.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/AvFzIKKIC0I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Video o buddhismu #4</h3>
+                    <p>Buddhistická přednáška, dokument nebo inspirativní video spojené s praxí.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/w88sWMukcO4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Video o buddhismu #5</h3>
+                    <p>Buddhistická přednáška, dokument nebo inspirativní video spojené s praxí.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/lNdgT6VCuu0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Video o buddhismu #6</h3>
+                    <p>Buddhistická přednáška, dokument nebo inspirativní video spojené s praxí.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/Lh7vMPwvFU0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Video o buddhismu #7</h3>
+                    <p>Buddhistická přednáška, dokument nebo inspirativní video spojené s praxí.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/CKV3WBRMoTQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Video o buddhismu #8</h3>
+                    <p>Buddhistická přednáška, dokument nebo inspirativní video spojené s praxí.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/PDMz8Tx1FQw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Video o buddhismu #9</h3>
+                    <p>Buddhistická přednáška, dokument nebo inspirativní video spojené s praxí.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/umYnWyvnj3U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Video o buddhismu #10</h3>
+                    <p>Buddhistická přednáška, dokument nebo inspirativní video spojené s praxí.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/PYC7j-w7GlM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Video o buddhismu #11</h3>
+                    <p>Buddhistická přednáška, dokument nebo inspirativní video spojené s praxí.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/VbI10_Mzr0w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Video o buddhismu #12</h3>
+                    <p>Buddhistická přednáška, dokument nebo inspirativní video spojené s praxí.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/qb2fVwTz9Ag" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Video o buddhismu #13</h3>
+                    <p>Buddhistická přednáška, dokument nebo inspirativní video spojené s praxí.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/NeAJhseMHUs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Video o buddhismu #14</h3>
+                    <p>Buddhistická přednáška, dokument nebo inspirativní video spojené s praxí.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/vB7VSdQgHoU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Is Buddhism an Atheistic Religion?</h3>
+                    <p>ReligionForBreakfast – Pohled a zamyšlení nad tím, zda je buddhismus ateistickým náboženstvím (anglicky).</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/gBMzPJf2mXc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>I studied Buddhism for 1 month. It changed me.</h3>
+                    <p>Nas Daily – Zkušenosti a vhledy nasbírané po celém měsíci studia buddhismu přímo v Nepálu.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/iFLElWTKbJk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Buddhismus a hinduismus</h3>
+                    <p>Historické povídky – Jazykový a filozofický rozbor vzájemného vztahu mezi buddhismem a hinduismem.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/4PFJ4h0gAgo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Bůh stvořitel v buddhistické filozofii</h3>
+                    <p>Historické povídky – Paradox Boha stvořitele, myšlenka počátku vesmíru a podstata mysli.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/Vqy4sIxRsJc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Mahápardžápatí Gótamí</h3>
+                    <p>Historické povídky – Životní příběh Buddhovy pěstounky a její boj za rovnoprávnost žen.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/paSP7ai4qsI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>Kaundinja</h3>
+                    <p>Historické povídky – O zapomenuté historii a životě prvního člověka, který skutečně pochopil Buddhovo učení.</p>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/SMvQtRtT4-I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h3>The Spread of Buddhism (500 BCE - 1200)</h3>
+                    <p>Ollie Bye – Geografická vizualizace rozšiřování buddhismu světem od 500 př. n. l. do roku 1200.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- COOKIES LIŠTA -->
+    <div id="cookie-banner">
+        <div class="cookie-text">
+            <strong>Ochrana soukromí (Cookies)</strong><br>
+            Tento web používá soubory cookies v souladu s legislativou EU a ČR k zajištění základní funkčnosti webu a k analýze návštěvnosti. Zvolte prosím, jaké cookies můžeme použít.
+        </div>
+        <div class="cookie-buttons">
+            <button class="btn-necessary" id="btn-necessary">Přijmout nezbytné</button>
+            <button class="btn-all" id="btn-all">Přijmout vše</button>
+        </div>
+    </div>
+
+    <!-- TLAČÍTKO ZPĚT NAHORU -->
+    <button id="backToTop" title="Zpět nahoru">↑</button>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // --- COOKIES ---
+            const cookieBanner = document.getElementById("cookie-banner");
+            const btnNecessary = document.getElementById("btn-necessary");
+            const btnAll = document.getElementById("btn-all");
+
+            if (!localStorage.getItem("cookieConsent")) {
+                setTimeout(() => {
+                    cookieBanner.classList.add("show");
+                }, 500);
+            }
+
+            function acceptCookies(type) {
+                localStorage.setItem("cookieConsent", type);
+                cookieBanner.classList.remove("show");
+            }
+
+            btnNecessary.addEventListener("click", function() { acceptCookies("necessary"); });
+            btnAll.addEventListener("click", function() { acceptCookies("all"); });
+
+            // --- MOBILNÍ MENU ---
+            const hamburger = document.getElementById("hamburger");
+            const navLinks = document.getElementById("nav-links");
+            const navItems = navLinks.querySelectorAll("a");
+
+            hamburger.addEventListener("click", () => {
+                navLinks.classList.toggle("active");
+                hamburger.classList.toggle("active");
+            });
+
+            navItems.forEach(item => {
+                item.addEventListener("click", () => {
+                    navLinks.classList.remove("active");
+                    hamburger.classList.remove("active");
+                });
+            });
+
+            // --- ZPĚT NAHORU ---
+            const backToTopBtn = document.getElementById("backToTop");
+            
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.style.display = "flex";
+                } else {
+                    backToTopBtn.style.display = "none";
+                }
+            });
+
+            backToTopBtn.addEventListener("click", () => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+
+            // --- KVÍZ LOGIKA ---
+            startQuiz();
+        });
+
+        // Kvízová data
+        const quizData = [
+            {
+                q: "1. Jaká je tvá hlavní motivace pro praxi?",
+                a: "Studovat učení, pochopit příčiny utrpení a dosáhnout osvobození (Nirvány).",
+                b: "Prožívat přítomný okamžik bez posuzování a konceptuálních úvah.",
+                c: "Rozvíjet soucit a moudrost, abych mohl(a) pomáhat všem cítícím bytostem.",
+                d: "Snížit každodenní stres, zlepšit soustředění a celkové duševní zdraví."
+            },
+            {
+                q: "2. Jaké meditační prostředí a styl ti nejvíce vyhovuje?",
+                a: "V tichosti sledovat vlastní dech a analyzovat tělesné i duševní procesy.",
+                b: "Sedět v naprostém klidu čelem ke zdi, zkrátka 'jen sedět' (zazen).",
+                c: "Bohaté vizualizace, barvy, recitace manter a práce se symboly.",
+                d: "Praktická cvičení všímavosti aplikovatelná kdekoliv, třeba i v tramvaji."
+            },
+            {
+                q: "3. Jaký je tvůj vztah ke studiu starých textů?",
+                a: "Je to nezbytný základ. Chci číst původní slova Buddhy a analyzovat je.",
+                b: "Texty jsou jen 'prst ukazující na měsíc'. Důležitější je přímá zkušenost.",
+                c: "Studuji je pod vedením kvalifikovaného lamy, jako tajná učení a komentáře.",
+                d: "Beru si z nich jen to, co mi dává smysl v dnešním moderním světě."
+            },
+            {
+                q: "4. Jak vnímáš roli učitele na své cestě?",
+                a: "Učitel (mnich) je zkušený průvodce a interpret starých textů.",
+                b: "Mistr tě učí pomocí hádanek (koanů) nebo přísnosti, aby tě probudil ze snu.",
+                c: "Lama je naprosto klíčový, je zosobněním samotného Buddhy. Důvěřuji mu plně.",
+                d: "Učitel je spíše psychoterapeut nebo lektor mindfulness, který vede kurz."
+            },
+            {
+                q: "5. Jak se stavíš k tradičním náboženským rituálům?",
+                a: "Cením si jednoduchých obřadů, mnišských pravidel a zpěvu sutt v páli.",
+                b: "Rituál je jen formou hluboké pozornosti. Každý pohyb v dodó (chrámu) je praxí.",
+                c: "Miluji složité obřady s bubínky, zvonky a obětinami. Mají silnou energii.",
+                d: "Rituály a náboženské prvky mě spíše odrazují, hledám čistou praxi."
+            },
+            {
+                q: "6. Co pro tebe znamená etika v buddhismu?",
+                a: "Je to přesné dodržování pravidel (sila), bez kterých nelze správně meditovat.",
+                b: "Etika přirozeně vyvstává z probuzené a klidné mysli.",
+                c: "Zahrnuje sliby bódhisattvy – slib, že nedosáhnu klidu, dokud netrpí jiní.",
+                d: "Je to univerzální lidská slušnost, psychologická hygiena a neubližování."
+            },
+            {
+                q: "7. Co uděláš, když narazíš na překážku v meditaci?",
+                a: "Vrátím se k metodickému pozorování dechu a všímání si pomíjivosti jevů.",
+                b: "Nechám myšlenku prostě projít jako mrak na obloze. Pokračuji v sezení.",
+                c: "Použiji specifickou mantru nebo vizualizaci ochranného božstva.",
+                d: "Použiji techniky laskavosti k sobě samému (self-compassion) a uvolním se."
+            },
+            {
+                q: "8. Který z těchto prvků je pro tebe nejtěžší přijmout?",
+                a: "Složité esoterické rituály a slepou víru v gurua.",
+                b: "Nekonečné biflování a intelektuální analyzování starověkých textů.",
+                c: "Příliš strohý a racionální přístup, který postrádá hlubokou oddanost.",
+                d: "Koncept doslovné reinkarnace (znovuzrozování) po smrti."
+            },
+            {
+                q: "9. Jaký styl jazyka tě u učení nejvíce oslovuje?",
+                a: "Systematický, logický a přesně strukturovaný (např. očíslované seznamy).",
+                b: "Paradoxní, úderný, poetický a minimalistický.",
+                c: "Bohatý, mytologický, plný symboliky a hlubokých příběhů.",
+                d: "Moderní, vědecký, využívající poznatky z neurovědy a psychologie."
+            },
+            {
+                q: "10. Jaký je tvůj pohled na 'nadpřirozeno' (božstva, bódhisattvy, duchy)?",
+                a: "Věřím v buddhistickou kosmologii, ale hlavní je moje vlastní úsilí.",
+                b: "Nezabývám se tím. I kdyby existovali, podstata mysli je stejná teď a tady.",
+                c: "Jsou reálnou a aktivní součástí mé praxe, modlím se k nim pro inspiraci.",
+                d: "Chápu je jen jako psychologické archetypy nebo kulturní metafory."
+            },
+            {
+                q: "11. Jaký koncept tě nejvíce fascinuje?",
+                a: "Vipassaná (vhled) – hluboké prozkoumání toho, jak funguje tělo a mysl.",
+                b: "Šúnjatá (prázdnota) – pochopení, že nic nemá pevnou oddělenou podstatu.",
+                c: "Bódhičitta – nezměrná touha dosáhnout osvícení pro dobro ostatních.",
+                d: "Neuroplasticita – schopnost mozku měnit se na základě tréninku všímavosti."
+            },
+            {
+                q: "12. Kdybys měl(a) svou ideální praxi popsat jedním slovem, bylo by to:",
+                a: "Analýza (čištění mysli).",
+                b: "Přítomnost (tady a teď).",
+                c: "Transformace (přeměna energie).",
+                d: "Zdraví (rovnováha a zvládání)."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let scores = { A: 0, B: 0, C: 0, D: 0 };
+
+        function startQuiz() {
+            currentQuestion = 0;
+            scores = { A: 0, B: 0, C: 0, D: 0 };
+            document.getElementById("quiz-block").style.display = "block";
+            document.getElementById("result-block").style.display = "none";
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = quizData[currentQuestion];
+            document.getElementById("question-number").innerText = `Otázka ${currentQuestion + 1} z ${quizData.length}`;
+            document.getElementById("question-text").innerText = q.q;
+            document.getElementById("btn-a").innerText = q.a;
+            document.getElementById("btn-b").innerText = q.b;
+            document.getElementById("btn-c").innerText = q.c;
+            document.getElementById("btn-d").innerText = q.d;
+        }
+
+        function selectAnswer(answer) {
+            scores[answer]++;
+            currentQuestion++;
+            
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById("quiz-block").style.display = "none";
+            document.getElementById("result-block").style.display = "block";
+
+            // Najít nejvyšší skóre
+            let highest = 'A';
+            for (let key in scores) {
+                if (scores[key] > scores[highest]) {
+                    highest = key;
+                }
+            }
+
+            const title = document.getElementById("result-title");
+            const desc = document.getElementById("result-desc");
+
+            if (highest === 'A') {
+                title.innerText = "Théraváda (Tradiční/Analytická cesta)";
+                desc.innerText = "Nejbližší ti je původní učení starších, Théraváda. Tvá mysl ocení jasnou strukturu, logiku a systematickou práci na sobě (např. metodou Vipassaná). Respektuješ původní Buddhova slova a etická pravidla vnímáš jako silný základ pro hlubokou meditaci. Nemáš potřebu složitých rituálů, hledáš spíše klid a jasnost vlastním úsilím.";
+            } else if (highest === 'B') {
+                title.innerText = "Zen (Přímá/Minimalistická cesta)";
+                desc.innerText = "Nejblíže máš k Zenu. Tvá praxe nepotřebuje mnoho slov ani složitých textů; zajímá tě spíše přímá a radikální zkušenost 'teď a tady'. Ocenil(a) bys estetiku minimalismu, přísnou meditační formu a odhození všech zbytečných konceptů. Pro tebe je nejdůležitější každodenní bdělá pozornost – ať už na polštáři, nebo při mytí nádobí.";
+            } else if (highest === 'C') {
+                title.innerText = "Tibetský buddhismus (Symbolická/Tantrická cesta)";
+                desc.innerText = "Tvou cestou je Vadžrajána neboli Tibetský buddhismus. Máš blízko k bohaté symbolice, mantrám, vizualizacím a silnému vztahu k učiteli (lamovi). Vnímáš emoce a energii ne jako překážky, ale jako surovinu pro duchovní transformaci. Tvým hnacím motorem je ideál bódhisattvy – touha dosáhnout osvícení pro dobro všech živých bytostí.";
+            } else {
+                title.innerText = "Sekulární buddhismus / Mindfulness (Praktická cesta)";
+                desc.innerText = "Odpovídá ti Sekulární buddhismus. Náboženská dogmata, rituály a koncept znovuzrozování jsou pro tebe druhořadé nebo je opouštíš úplně. Z buddhismu si bereš to nejcennější pro moderní život – trénink mysli (mindfulness), psychologickou hygienu a laskavost. Přistupuješ k učení racionálně, s důrazem na to, co funguje v každodenním shonu.";
+            }
+        }
+    </script>
+</body>
+</html>
